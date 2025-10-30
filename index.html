@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The AI App Revolution: Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #47B39D;
+            font-size: 2rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .flow-box {
+            border: 2px solid #47B39D;
+            background-color: #ffffff;
+            color: #111827;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            flex-grow: 1;
+            min-width: 150px;
+        }
+        .flow-connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-basis: 100%;
+            color: #47B39D;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .code-block {
+            background-color: #1f2937;
+            color: #f3f4f6;
+            font-family: monospace;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-size: 0.875rem;
+        }
+        .code-block-highlight {
+            color: #F9D62E;
+        }
+        .mlops-loop {
+            display: grid;
+            grid-template-columns: 1fr 100px 1fr;
+            grid-template-rows: 1fr 100px 1fr;
+            align-items: center;
+            justify-items: center;
+            max-width: 700px;
+            margin: 2rem auto;
+        }
+        .mlops-box {
+            background-color: #ffffff;
+            border: 2px solid #47B39D;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            width: 80%;
+        }
+        .mlops-center {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            background-color: #47B39D;
+            color: white;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+        .mlops-arrow {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #47B39D;
+        }
+        .box-data { grid-column: 1 / 2; grid-row: 1 / 2; }
+        .arrow-1 { grid-column: 2 / 3; grid-row: 1 / 2; transform: rotate(90deg) translateX(-15px); }
+        .box-train { grid-column: 3 / 4; grid-row: 1 / 2; }
+        .arrow-2 { grid-column: 3 / 4; grid-row: 2 / 3; }
+        .box-deploy { grid-column: 3 / 4; grid-row: 3 / 4; }
+        .arrow-3 { grid-column: 2 / 3; grid-row: 3 / 4; transform: rotate(90deg) translateX(15px); }
+        .box-monitor { grid-column: 1 / 2; grid-row: 3 / 4; }
+        .arrow-4 { grid-column: 1 / 2; grid-row: 2 / 3; }
+        .retrain-loop {
+            grid-column: 1 / 4;
+            grid-row: 2 / 3;
+            text-align: center;
+            font-weight: 600;
+            color: #FF4E50;
+            margin-top: 6rem;
+            z-index: 5;
+        }
+        @media (max-width: 767px) {
+            .mlops-loop {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .mlops-box { width: 100%; }
+            .mlops-arrow, .mlops-center, .retrain-loop {
+                display: none;
+            }
+            .mlops-box:not(:last-child)::after {
+                content: '↓';
+                display: block;
+                font-size: 2rem;
+                color: #47B39D;
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-[#47B39D]">The AI App Revolution</h1>
+            <div class="hidden md:flex space-x-4">
+                <a href="#problem" class="text-gray-600 hover:text-[#FF4E50] font-medium">The Problem</a>
+                <a href="#trap" class="text-gray-600 hover:text-[#FF4E50] font-medium">The "Pilot Trap"</a>
+                <a href="#solution" class="text-gray-600 hover:text-[#FF4E50] font-medium">The Solution</a>
+                <a href="#value" class="text-gray-600 hover:text-[#FF4E50] font-medium">Use Cases</a>
+                <a href="#monitoring" class="text-gray-600 hover:text-[#FF4E50] font-medium">The Imperative</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="intro" class="text-center mb-20">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">The New User Expectation</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
+                The era of static, logic-based apps is over. Today's users expect intelligent applications that are:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-lg border-l-4 border-[#FF4E50]">
+                    <h3 class="text-2xl font-bold text-[#FF4E50] mb-3">Personalized</h3>
+                    <p class="text-gray-600">Applications must know users and their unique preferences.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg border-l-4 border-[#FC913A]">
+                    <h3 class="text-2xl font-bold text-[#FC913A] mb-3">Predictive</h3>
+                    <p class="text-gray-600">Applications must anticipate needs before users are even aware of them.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg border-l-4 border-[#47B39D]">
+                    <h3 class="text-2xl font-bold text-[#47B39D] mb-3">Adaptive</h3>
+                    <p class="text-gray-600">Applications must learn from behavior and get smarter over time.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="problem" class="mb-20">
+            <h2 class="text-4xl font-bold text-gray-900 text-center mb-10">The Core Problem: A New Paradigm</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12 text-center">
+                The primary challenge of AI app development is the shift from deterministic, rule-based logic to a new world of probabilistic, data-driven predictions.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-semibold mb-4 text-center">Traditional App</h3>
+                    <p class="text-gray-600 mb-4 text-center">Logic is <span class="font-bold text-blue-600">deterministic</span> and written by developers.</p>
+                    <div class="code-block">
+                        <pre><code><span class="text-gray-400">if (user.region == "FR") {</span>
+  <span class="code-block-highlight">show_french_promo();</span>
+<span class="text-gray-400">}</span>
+
+<span class="text-green-400">// Output is 100% predictable</span></code></pre>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-semibold mb-4 text-center">AI-Powered App</h3>
+                    <p class="text-gray-600 mb-4 text-center">Logic is <span class="font-bold text-[#FF4E50]">probabilistic</span> and learned from data.</p>
+                    <div class="code-block">
+                        <pre><code><span class="text-gray-400">prediction = model.predict(user_data);</span>
+<span class="text-gray-400">if (prediction.is_fraud > 0.8) {</span>
+  <span class="code-block-highlight">flag_transaction();</span>
+<span class="text-gray-400">}</span>
+
+<span class="text-red-400">// Output is a probability</span>
+<span class="text-red-400">// It can be wrong</span></code></pre>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md mt-8">
+                <h3 class="text-2xl font-semibold mb-4 text-center">This Shift Introduces Three New Challenges</h3>
+                <p class="text-gray-600 text-center max-w-2xl mx-auto mb-6">This new paradigm means application quality is no longer just about code; it's about data, uncertainty, and ethics.</p>
+                <div class="chart-container h-64 md:h-80 max-h-96">
+                    <canvas id="challengesChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="trap" class="mb-20">
+            <h2 class="text-4xl font-bold text-gray-900 text-center mb-10">The "Pilot Trap": Why AI Projects Fail</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12 text-center">
+                Many organizations build a successful model in a notebook (a "pilot") but fail to ever make it a real-world product. A standalone model file is <span class="font-bold">not</span> an application.
+            </p>
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-semibold text-center mb-8">From Notebook to "Pilot Trap"</h3>
+                <div class="flex flex-col md:flex-row items-center justify-around gap-4">
+                    <div class="flow-box bg-[#E1F5C4] text-[#47B39D] border-[#47B39D] p-6">
+                        <div class="text-4xl mb-2">💡</div>
+                        <div class="text-lg font-bold">Data Scientist's Notebook</div>
+                        <div class="text-base font-medium">"95% Accuracy!"</div>
+                    </div>
+                    
+                    <div class="flow-arrow text-red-500 text-6xl font-normal p-4 my-4 md:my-0">
+                        ×
+                    </div>
+
+                    <div class="flow-box bg-red-100 text-red-700 border-red-500 p-6">
+                        <div class="text-4xl mb-2">🚫</div>
+                        <div class="text-lg font-bold">Production Application</div>
+                        <div class="text-base font-medium">Never Deployed</div>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-semibold text-center mt-12 mb-6">To be useful, a model MUST be:</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-gray-100 p-4 rounded-lg text-center">
+                        <span class="text-2xl mr-2 text-green-500">✔</span>
+                        <span class="text-lg font-medium">Packaged</span>
+                        <p class="text-sm text-gray-600">(e.g., in a container)</p>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg text-center">
+                        <span class="text-2xl mr-2 text-green-500">✔</span>
+                        <span class="text-lg font-medium">Integrated</span>
+                        <p class="text-sm text-gray-600">(Hooked into app code)</p>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg text-center">
+                        <span class="text-2xl mr-2 text-green-500">✔</span>
+                        <span class="text-lg font-medium">Scalable</span>
+                        <p class="text-sm text-gray-600">(Handle 1000s of requests)</p>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg text-center">
+                        <span class="text-2xl mr-2 text-green-500">✔</span>
+                        <span class="text-lg font-medium">Robust</span>
+                        <p class="text-sm text-gray-600">(Monitored for uptime)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solution" class="mb-20">
+            <h2 class="text-4xl font-bold text-gray-900 text-center mb-10">The Solution: A New Stack & Process</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12 text-center">
+                Success requires unifying the tech stack and adopting a new engineering discipline: MLOps (Machine Learning Operations).
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-semibold mb-6 text-center">Part 1: The Modern AI Tech Stack</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-lg bg-gray-100 border-l-4 border-[#47B39D]">
+                            <h4 class="font-bold text-lg text-[#47B39D]">Cloud Platforms</h4>
+                            <p class="text-gray-700">The foundation for data, training, and deployment.</p>
+                            <p class="text-sm font-medium text-gray-600 mt-1">e.g., Azure AI Studio, Google Vertex AI, AWS SageMaker</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-gray-100 border-l-4 border-[#FC913A]">
+                            <h4 class="font-bold text-lg text-[#FC913A]">Frameworks</h4>
+                            <p class="text-gray-700">Tools for building custom or using pre-trained models.</p>
+                            <p class="text-sm font-medium text-gray-600 mt-1">e.g., TensorFlow, PyTorch, Hugging Face</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-gray-100 border-l-4 border-[#FF4E50]">
+                            <h4 class="font-bold text-lg text-[#FF4E50]">Integration Layer</h4>
+                            <p class="text-gray-700">The API that lets the app talk to the model.</p>
+                            <p class="text-sm font-medium text-gray-600 mt-1">e.g., Secure, scalable microservice (API)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-semibold mb-6 text-center">Part 2: MLOps, The "DevOps" for AI</h3>
+                    <p class="text-gray-600 text-center mb-6">MLOps is the automated discipline that manages the entire AI app lifecycle as a continuous, looping process.</p>
+                    <div class="mlops-loop hidden md:grid">
+                        <div class="mlops-box box-data">1. Data Ingestion & Versioning</div>
+                        <div class="mlops-arrow arrow-1">→</div>
+                        <div class="mlops-box box-train">2. Model Training & Experimenting</div>
+                        <div class="mlops-arrow arrow-2">↓</div>
+                        <div class="mlops-box box-deploy">3. Deployment & Integration</div>
+                        <div class="mlops-arrow arrow-3">→</div>
+                        <div class="mlops-box box-monitor">4. Monitoring & Real-World Feedback</div>
+                        <div class="mlops-arrow arrow-4">↑</div>
+                        <div class="mlops-center">MLOps</div>
+                        <div class="retrain-loop">← Retrain Loop (Triggered by Monitoring) ←</div>
+                    </div>
+                    <div class="flex flex-col space-y-2 items-center md:hidden">
+                        <div class="flow-box w-full mlops-box">1. Data Ingestion & Versioning</div>
+                        <div class="flow-box w-full mlops-box">2. Model Training & Experimenting</div>
+                        <div class="flow-box w-full mlops-box">3. Deployment & Integration</div>
+                        <div class="flow-box w-full mlops-box bg-[#E1F5C4]">4. Monitoring & Feedback</div>
+                        <div class="flow-connector text-sm text-gray-500">(...which triggers new data collection...)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="value" class="mb-20">
+            <h2 class="text-4xl font-bold text-gray-900 text-center mb-10">Where is the Real-World Value?</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12 text-center">
+                AI apps are not just theory. They are actively driving measurable ROI across every industry by solving specific, high-impact problems.
+            </p>
+        
+            <div class="bg-white p-6 rounded-lg shadow-md mb-12">
+                <h3 class="text-2xl font-semibold mb-4 text-center">First, Understand the Effort: AI Project Time Allocation</h3>
+                <p class="text-gray-600 text-center max-w-2xl mx-auto mb-6">
+                    A common mistake is underestimating the effort. Building the model is just one piece. The vast majority of time is spent on data preparation and operationalizing the model (MLOps).
+                </p>
+                <div class="chart-container h-64 md:h-80 max-h-96">
+                    <canvas id="timeChart"></canvas>
+                </div>
+            </div>
+        
+            <h3 class="text-3xl font-bold text-gray-900 text-center mb-10">Real-World Use Cases</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-lg flex flex-col">
+                    <h4 class="text-2xl font-bold text-[#FF4E50] mb-3">E-commerce: Personalization</h4>
+                    <p class="text-gray-600 mb-4"><span class="font-bold">Pain:</span> Low conversion rates and generic customer experiences.</p>
+                    <p class="text-gray-600 mb-4"><span class="font-bold">AI Solution:</span> A real-time recommendation engine that analyzes user behavior to predict and show products they are most likely to buy.</p>
+                    <p class="text-gray-600 font-bold text-green-600 mt-auto"><span class="font-bold">Gain:</span> 15-25% increase in average order value and significantly higher customer loyalty.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg flex flex-col">
+                    <h4 class="text-2xl font-bold text-[#FC913A] mb-3">Finance: Fraud Detection</h4>
+                    <p class="text-gray-600 mb-4"><span class="font-bold">Pain:</span> High financial losses from sophisticated fraud and slow, manual transaction reviews.</p>
+                    <p class="text-gray-600 mb-4"><span class="font-bold">AI Solution:</span> An anomaly detection model that scans millions of transactions in real-time to flag patterns invisible to human analysts.</p>
+                    <p class="text-gray-600 font-bold text-green-600 mt-auto"><span class="font-bold">Gain:</span> Millions saved in fraud prevention and instant, automated alerts for compliance.</p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-lg flex flex-col">
+                    <h4 class="text-2xl font-bold text-[#47B39D] mb-3">Healthcare: Predictive Diagnostics</h4>
+                    <p class="text-gray-600 mb-4"><span class="font-bold">Pain:</span> Risk of late-stage diagnosis and high, repetitive workload for radiologists analyzing medical images.</p>
+                    <p class="text-gray-600 mb-4"><span class="font-bold">AI Solution:</span> A computer vision model trained to identify early signs of diseases (e.g., tumors in MRIs) with superhuman accuracy.</p>
+                    <p class="text-gray-600 font-bold text-green-600 mt-auto"><span class="font-bold">Gain:</span> Earlier patient detection, better outcomes, and a 40% reduction in manual review time for specialists.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="monitoring" class="mb-20">
+            <h2 class="text-4xl font-bold text-gray-900 text-center mb-10">The Post-Launch Imperative: Monitoring</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12 text-center">
+                With traditional code, you "set it and forget it." With AI, you "deploy and monitor forever." The reason: <span class="font-bold text-red-600">Model Drift</span>.
+            </p>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-semibold text-center mb-4">Model Drift: The Silent App Killer</h3>
+                <p class="text-gray-600 text-center max-w-2xl mx-auto mb-6">The world changes, but your model doesn't. Customer behavior shifts, new fraud tactics emerge. A model trained on old data becomes less accurate over time.</p>
+                <div class="chart-container h-64 md:h-80 max-h-96">
+                    <canvas id="driftChart"></canvas>
+                </div>
+                <p class="text-center text-gray-600 mt-4 font-medium">
+                    The solution is automated monitoring. When accuracy drops, it must automatically trigger an alert or a new retraining pipeline.
+                </p>
+            </div>
+        </section>
+
+        <section id="conclusion" class="bg-gray-800 text-white p-12 rounded-lg shadow-2xl">
+            <h2 class="text-4xl font-bold text-center mb-10">Your Key Takeaways</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-700 p-6 rounded-lg">
+                    <div class="text-4xl font-bold text-[#47B39D] mb-3">1.</div>
+                    <h3 class="text-2xl font-semibold mb-3">Start with the Problem</h3>
+                    <p class="text-gray-300">A clear business problem (e.g., "reduce costs by 20%") defines success, not the AI itself.</p>
+                </div>
+                <div class="bg-gray-700 p-6 rounded-lg">
+                    <div class="text-4xl font-bold text-[#FC913A] mb-3">2.</div>
+                    <h3 class="text-2xl font-semibold mb-3">Bridge the Gap</h3>
+                    <p class="text-gray-300">MLOps is the non-negotiable bridge from a data science experiment to a scalable software product.</p>
+                </div>
+                <div class="bg-gray-700 p-6 rounded-lg">
+                    <div class="text-4xl font-bold text-[#FF4E50] mb-3">3.</div>
+                    <h3 class="text-2xl font-semibold mb-3">Monitor or Fail</h3>
+                    <p class="text-gray-300">Post-launch monitoring for model drift is the only way to ensure your app stays intelligent and trustworthy.</p>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block bg-[#47B39D] text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-[#3d9a88] transition-colors">
+                    Start Your AI App Readiness Assessment
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-6 bg-gray-100 mt-12">
+        <p class="text-gray-600">&copy; 2025 Your Company. This infographic is based on the "AI App Revolution" whitepaper.</p>
+    </footer>
+
+    <script>
+        (function() {
+            "use strict";
+            
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            };
+            
+            const processLabels = (labels) => {
+                return labels.map(label => {
+                    if (typeof label === 'string' && label.length > 16) {
+                        const words = label.split(' ');
+                        const lines = [];
+                        let currentLine = '';
+                        words.forEach(word => {
+                            if ((currentLine + word).length > 16) {
+                                lines.push(currentLine.trim());
+                                currentLine = word + ' ';
+                            } else {
+                                currentLine += word + ' ';
+                            }
+                        });
+                        lines.push(currentLine.trim());
+                        return lines;
+                    }
+                    return label;
+                });
+            };
+
+            const challengesCtx = document.getElementById('challengesChart')?.getContext('2d');
+            if (challengesCtx) {
+                const challengeLabels = processLabels(['Data Dependency', 'Uncertainty & Errors', 'Ethics & Bias']);
+                new Chart(challengesCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: challengeLabels,
+                        datasets: [{
+                            label: 'New AI Challenges',
+                            data: [45, 30, 25],
+                            backgroundColor: [
+                                '#FF4E50',
+                                '#FC913A',
+                                '#F9D62E',
+                            ],
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: {
+                                        family: "'Inter', sans-serif"
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    title: tooltipTitleCallback
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const driftCtx = document.getElementById('driftChart')?.getContext('2d');
+            if (driftCtx) {
+                const driftLabels = processLabels(['January', 'February', 'March', 'April', 'May', 'June']);
+                new Chart(driftCtx, {
+                    type: 'line',
+                    data: {
+                        labels: driftLabels,
+                        datasets: [{
+                            label: 'Model Accuracy',
+                            data: [95, 92, 88, 85, 78, 70],
+                            borderColor: '#FF4E50',
+                            backgroundColor: 'rgba(255, 78, 80, 0.1)',
+                            fill: true,
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                max: 100,
+                                title: {
+                                    display: true,
+                                    text: 'Accuracy %'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Time After Deployment'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    title: tooltipTitleCallback
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            const timeCtx = document.getElementById('timeChart')?.getContext('2d');
+            if (timeCtx) {
+                const timeLabels = processLabels(['Data Collection & Prep', 'Model Training', 'MLOps & Deployment', 'Monitoring & Retraining']);
+                new Chart(timeCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: timeLabels,
+                        datasets: [{
+                            label: 'Time Allocation %',
+                            data: [60, 15, 15, 10],
+                            backgroundColor: [
+                                '#FF4E50',
+                                '#FC913A',
+                                '#47B39D',
+                                '#F9D62E',
+                            ],
+                            borderColor: '#ffffff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    title: tooltipTitleCallback
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Percentage of Project Time (%)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+        })();
+    </script>
+
+</body>
+</html>
+
